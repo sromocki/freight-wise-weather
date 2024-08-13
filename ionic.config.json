@@ -1,0 +1,8 @@
+{
+  "name": "FreightWise Weather",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "vue-vite",
+  "id": "72ee1e0d"
+}
