@@ -2,20 +2,20 @@
   <ion-page>
     <ion-header>
       <ion-toolbar class="custom-header">
-        <img src="@/assets/img/freightwise-logo_80w-264x71-copy.png" alt="Weather Icon" class="title-icon" />
+        <img src="@/assets/img/freightwise-logo_80w-264x71-copy.png" alt="Weather Icon" class="title-icon" width="160"/>
         <div class="tagline">
           <span class="line1">SHIPPING YOU TOMORROW'S WEATHER</span><br>
           <span class="line2">TODAY!</span>
         </div>
         <div class="divider"></div> <!-- Divider bar -->
-        <ion-searchbar
-          v-model="searchQuery"
-          @ionInput="handleSearch"
-          placeholder="Weather Location"
-          showCancelButton="focus"
-          class="searchbar"
-        ></ion-searchbar>
       </ion-toolbar>
+      <ion-searchbar
+        v-model="searchQuery"
+        @ionInput="handleSearch"
+        placeholder="Weather Location"
+        showCancelButton="focus"
+        class="searchbar"
+      ></ion-searchbar>
     </ion-header>
     <ion-tabs>
       <ion-router-outlet></ion-router-outlet>
@@ -40,7 +40,7 @@
 </template>
 
 <script setup lang="ts">
-import { IonTabBar, IonTabButton, IonTabs, IonLabel, IonIcon, IonPage, IonRouterOutlet } from '@ionic/vue';
+import { IonTabBar, IonTabButton, IonTabs, IonLabel, IonIcon, IonPage, IonHeader, IonRouterOutlet, IonSearchbar, IonToolbar } from '@ionic/vue';
 import { time, calendar, partlySunny } from 'ionicons/icons';
 
 import { ref } from 'vue';
@@ -117,30 +117,26 @@ function handleSearch(event: Event) {
 <style scoped>
 .tagline {
   font-family: 'Montserrat', sans-serif !important; /* or another bold, geometric font */
-  float: right;
   text-align: center;
-  padding-top: 20px;
-  padding-right: 10px;
+  padding: 3px;
 }
 
 .line1 {
   color: #1F3B87; /* Dark Blue */
-  font-size: 1em;
+  font-size: 0.7em;
   font-weight: bold;
 }
 
 .line2 {
   color: #117A7B; /* Teal */
-  font-size: 1.2em;
+  font-size: 0.8em;
   font-weight: extra-bold;
 }
 
 ion-toolbar.custom-header {
-  --background: #ffffff !important;
-  color: #000000 !important;
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  text-align: center;
 }
 
 .divider {
@@ -151,16 +147,12 @@ ion-toolbar.custom-header {
 
 ion-searchbar.searchbar {
   width: 100%; /* Adjust width as needed */
-  --background: #ffffff !important;
-  color: #000000 !important;
+  vertical-align: middle;
+  text-align: center;
 }
 
 ::v-deep .searchbar-input {
   font-size: 1.4em !important; /* Ensure this overrides any default styles */
   font-weight: bold !important;
-}
-
-.ion-page {
-  --background: #ffffff !important;
 }
 </style>
