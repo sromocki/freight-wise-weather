@@ -1,0 +1,61 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '3.4.0-SNAPSHOT'
+	id 'io.spring.dependency-management' version '1.1.6'
+}
+
+group = 'com.example'
+// Read the current version from version.txt
+def versionFile = file('version.txt')
+def currentVersion = versionFile.text.trim()
+
+// Increment the version number
+def versionParts = currentVersion.split('\\.')
+def patchVersion = versionParts[2].toInteger() + 1
+def newVersion = "${versionParts[0]}.${versionParts[1]}.${patchVersion}"
+
+// Write the new version back to version.txt
+versionFile.text = newVersion
+
+// Set the project version
+version = newVersion
+
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(17)
+	}
+}
+
+jar {
+  manifest {
+    attributes 'Main-Class': 'com.example.freightwise_weather.FreightwiseWeatherApplication'
+  }
+}
+
+repositories {
+	mavenCentral()
+	maven { url 'https://repo.spring.io/milestone' }
+	maven { url 'https://repo.spring.io/snapshot' }
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'com.fasterxml.jackson.core:jackson-databind'
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
+
+tasks.register('incrementVersion') {
+	doLast {
+		println "Version incremented to: $newVersion"
+	}
+}
+
+tasks.named('build') {
+	dependsOn 'incrementVersion'
+}
