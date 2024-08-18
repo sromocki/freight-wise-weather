@@ -38,7 +38,13 @@ public class WeatherServiceImpl implements WeatherService {
 
     @Override
     public Coordinates getCoordinates(@NotBlank String location) {
-        String geocodingUrl = baseUrl + "/geo/1.0/direct?q=" + location + "&limit=1&appid=" + apiKey;
+        String geocodingUrl;
+        boolean isZipCode = location.matches("\\d{5}(-\\d{4})?");
+        if (isZipCode) {
+            geocodingUrl = baseUrl + "/geo/1.0/zip?zip=" + location + "&appid=" + apiKey;
+        } else {
+            geocodingUrl = baseUrl + "/geo/1.0/direct?q=" + location + "&limit=1&appid=" + apiKey;
+        }
         String response;
 
         try {
@@ -50,12 +56,18 @@ public class WeatherServiceImpl implements WeatherService {
 
         try {
             JsonNode root = objectMapper.readTree(response);
-            JsonNode firstResult = root.get(0);
+            JsonNode firstResult;
+            if (isZipCode) {
+                firstResult = root;
+            } else {
+                firstResult = root.get(0);
+            }
             double lat = firstResult.get("lat").asDouble();
             double lon = firstResult.get("lon").asDouble();
             String name = firstResult.get("name").asText();
             String country = firstResult.get("country").asText();
             String state = firstResult.has("state") ? firstResult.get("state").asText() : null;
+            String zip = firstResult.has("zip") ? firstResult.get("zip").asText() : null;
 
             Map<String, String> localNames = new HashMap<>();
             if (firstResult.has("local_names")) {
@@ -67,7 +79,7 @@ public class WeatherServiceImpl implements WeatherService {
                 }
             }
 
-            return new Coordinates(lat, lon, name, localNames, country, state);
+            return new Coordinates(lat, lon, name, localNames, country, state, zip);
         } catch (Exception e) {
             logger.error("Error parsing coordinates response for location: {}", location, e);
             throw new CoordinatesParsingException("Error parsing coordinates response for location: " + location, e);
@@ -91,7 +103,9 @@ public class WeatherServiceImpl implements WeatherService {
         }
 
         try {
-            return objectMapper.readValue(response, CurrentWeather.class);
+            CurrentWeather currentWeather = objectMapper.readValue(response, CurrentWeather.class);
+            currentWeather.setName(coordinates.getName());
+            return currentWeather;
         } catch (Exception e) {
             logger.error("Error parsing weather response for coordinates: {}", coordinates, e);
             throw new WeatherParsingException("Error parsing weather response for coordinates: " + coordinates, e);

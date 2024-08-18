@@ -9,13 +9,21 @@
         </div>
         <div class="divider"></div> <!-- Divider bar -->
       </ion-toolbar>
-      <ion-searchbar
-        v-model="searchQuery"
-        @ionInput="handleSearch"
-        placeholder="Weather Location"
-        showCancelButton="focus"
-        class="searchbar"
-      ></ion-searchbar>
+      <ion-content>
+        <div class="search-container">
+          <ion-searchbar
+            v-model="searchQuery"
+            @keypress.enter="handleSearch"
+            placeholder="Enter a city or zip"
+            showCancelButton="focus"
+            class="searchbar"
+            :show-icon="false"
+          ></ion-searchbar>
+          <ion-button @click="handleSearch" class="search-button">
+            <ion-icon :icon="searchIcon" />
+          </ion-button>
+        </div>
+      </ion-content>
     </ion-header>
     <ion-tabs>
       <ion-router-outlet></ion-router-outlet>
@@ -40,119 +48,39 @@
 </template>
 
 <script setup lang="ts">
-import { IonTabBar, IonTabButton, IonTabs, IonLabel, IonIcon, IonPage, IonHeader, IonRouterOutlet, IonSearchbar, IonToolbar } from '@ionic/vue';
-import { time, calendar, partlySunny } from 'ionicons/icons';
+import { IonTabBar, IonTabButton, IonButton, IonContent, IonTabs, IonLabel, IonIcon, IonPage, IonHeader, IonRouterOutlet, IonSearchbar, IonToolbar } from '@ionic/vue';
+import { search as searchIcon, time, calendar, partlySunny } from 'ionicons/icons';
 
 import { ref } from 'vue';
 
-// Sample weather data
-const weatherData = ref({
-  location: 'New York',
-  temperature: 77,
-  condition: 'Sunny',
-  humidity: 60,
-  windSpeed: 15,
-});
-
-const locationWeatherData = {
-  'new york': {
-    location: 'New York',
-    temperature: 77, // Converted to Fahrenheit
-    condition: 'Sunny',
-    humidity: 60,
-    windSpeed: 15,
-  },
-  'los angeles': {
-    location: 'Los Angeles',
-    temperature: 82, // Converted to Fahrenheit
-    condition: 'Partly Cloudy',
-    humidity: 55,
-    windSpeed: 10,
-  },
-  london: {
-    location: 'London',
-    temperature: 64, // Converted to Fahrenheit
-    condition: 'Rainy',
-    humidity: 70,
-    windSpeed: 20,
-  },
-  'san francisco': {
-    location: 'San Francisco',
-    temperature: 68, // Converted to Fahrenheit
-    condition: 'Foggy',
-    humidity: 80,
-    windSpeed: 12,
-  },
-  tokyo: {
-    location: 'Tokyo',
-    temperature: 86, // Converted to Fahrenheit
-    condition: 'Hot and Humid',
-    humidity: 65,
-    windSpeed: 5,
-  },
-};
-
 const searchQuery = ref('');
 
+const baseURL = process.env.NODE_ENV === 'production' 
+  ? 'http://freightwise-weather-backend-env-1.eba-isjqjwpy.us-east-1.elasticbeanstalk.com' 
+  : 'http://localhost:8080';
+
 // Handle search input and update weather data based on search query
-function handleSearch(event: Event) {
-  const target = event.target as HTMLIonSearchbarElement;
-  if (target && target.value) {
-    const query = target.value.toLowerCase();
-    
-    console.log('Search query:', query); // Debugging line
-    
-    if (query in locationWeatherData) {
-      weatherData.value = locationWeatherData[query as keyof typeof locationWeatherData];
-      console.log('Weather data for', weatherData.value.location, ':', JSON.parse(JSON.stringify(weatherData.value)));
+async function handleSearch() {
+    const query = searchQuery.value.trim().toLowerCase();
+    if (query) {
+      console.log('Search query:', query); // Debugging line
+      
+      try {
+        const response = await fetch(`${baseURL}/current-weather?location=${query}`);
+        if (response.ok) {
+          const data: WeatherResponse = await response.json();
+          console.log('Weather data for', query, ':', JSON.parse(JSON.stringify(data)));
+        } else {
+          console.log('Location not found');
+        }
+      } catch (error) {
+        console.error('Error fetching weather data:', error);
+      }
     } else {
-      console.log('Location not found');
+      console.log('Search input is empty or undefined');
     }
-  } else {
-    console.log('Search input is empty or undefined');
   }
-}
+
 </script>
 
-<style scoped>
-.tagline {
-  font-family: 'Montserrat', sans-serif !important; /* or another bold, geometric font */
-  text-align: center;
-  padding: 3px;
-}
-
-.line1 {
-  color: #1F3B87; /* Dark Blue */
-  font-size: 0.7em;
-  font-weight: bold;
-}
-
-.line2 {
-  color: #117A7B; /* Teal */
-  font-size: 0.8em;
-  font-weight: extra-bold;
-}
-
-ion-toolbar.custom-header {
-  display: flex;
-  justify-content: space-between;
-  text-align: center;
-}
-
-.divider {
-  width: 100%; /* Thickness of the divider */
-  height: 1px; /* Height of the divider */
-  background-color: #000000; /* Color of the divider */
-}
-
-ion-searchbar.searchbar {
-  width: 100%; /* Adjust width as needed */
-  vertical-align: middle;
-  text-align: center;
-}
-
-::v-deep .searchbar-input {
-  font-size: 1.4em !important; /* Ensure this overrides any default styles */
-  font-weight: bold !important;
-}
-</style>
+<style scoped src="./TabsPage.css"></style>

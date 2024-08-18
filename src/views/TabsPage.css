@@ -1,0 +1,61 @@
+.tagline {
+  font-family: 'Montserrat', sans-serif !important; /* or another bold, geometric font */
+  text-align: center;
+  padding: 3px;
+}
+
+.line1 {
+  color: #1F3B87; /* Dark Blue */
+  font-size: 0.7em;
+  font-weight: bold;
+}
+
+.line2 {
+  color: #117A7B; /* Teal */
+  font-size: 0.8em;
+  font-weight: extra-bold;
+}
+
+ion-toolbar.custom-header {
+  display: flex;
+  justify-content: space-between;
+  text-align: center;
+}
+
+.divider {
+  width: 100%; /* Thickness of the divider */
+  height: 1px; /* Height of the divider */
+  background-color: #000000; /* Color of the divider */
+}
+
+ion-searchbar.searchbar {
+  width: 80%; /* Adjust width as needed */
+  vertical-align: middle;
+  text-align: center;
+}
+
+.search-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px; /* Space between search bar and button */
+}
+
+::v-deep .searchbar-input {
+  font-size: 1.4em !important; /* Ensure this overrides any default styles */
+  font-weight: bold !important;
+}
+
+ion-button.search-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%; /* Match the height of the search bar */
+  font-size: 1.4em; /* Match the font size of the search bar */
+  background-color: #1F3B87; /* Dark Blue */
+  color: #FFFFFF; /* White text */
+  border-radius: 5px; /* Rounded corners */
+  font-family: 'Montserrat', sans-serif; /* Match the font of the logo */
+  font-weight: bold; /* Bold text */
+  vertical-align: middle;
+}

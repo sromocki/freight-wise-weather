@@ -10,13 +10,16 @@ public final class Coordinates {
     private final String country;
     private final String state;
 
-    public Coordinates(double lat, double lon, String name, Map<String, String> localNames, String country, String state) {
+    private final String zip;
+
+    public Coordinates(double lat, double lon, String name, Map<String, String> localNames, String country, String state, String zip) {
         this.lat = lat;
         this.lon = lon;
         this.name = name;
         this.localNames = localNames;
         this.country = country;
         this.state = state;
+        this.zip = zip;
     }
 
     public double getLat() {
@@ -41,5 +44,9 @@ public final class Coordinates {
 
     public String getState() {
         return state;
+    }
+
+    public String getZip() {
+        return zip;
     }
 }

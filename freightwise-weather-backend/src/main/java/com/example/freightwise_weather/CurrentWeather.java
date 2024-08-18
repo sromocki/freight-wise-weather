@@ -5,6 +5,7 @@ import java.util.List;
 public final class CurrentWeather {
     private final double lat;
     private final double lon;
+    private String name;
     private final String timezone;
     private final long timezoneOffset;
     private final Current current;
@@ -13,9 +14,10 @@ public final class CurrentWeather {
     private final List<Daily> daily;
     private final List<Alerts> alerts;
 
-    public CurrentWeather(double lat, double lon, String timezone, long timezoneOffset, Current current, List<Minutely> minutely, List<Hourly> hourly, List<Daily> daily, List<Alerts> alerts) {
+    public CurrentWeather(double lat, double lon, String name, String timezone, long timezoneOffset, Current current, List<Minutely> minutely, List<Hourly> hourly, List<Daily> daily, List<Alerts> alerts) {
         this.lat = lat;
         this.lon = lon;
+        this.name = name;
         this.timezone = timezone;
         this.timezoneOffset = timezoneOffset;
         this.current = current;
@@ -31,6 +33,14 @@ public final class CurrentWeather {
 
     public double getLon() {
         return lon;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getTimezone() {
