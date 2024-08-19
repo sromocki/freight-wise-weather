@@ -1,8 +1,11 @@
 package com.example.freightwise_weather;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.List;
 
 public final class Alerts {
+    @JsonProperty("sender_name")
     private final String senderName;
     private final String event;
     private final long start;

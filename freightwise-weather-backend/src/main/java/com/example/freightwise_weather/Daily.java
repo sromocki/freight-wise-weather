@@ -1,5 +1,7 @@
 package com.example.freightwise_weather;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.List;
 
 public final class Daily {
@@ -7,11 +9,15 @@ public final class Daily {
     private final long sunrise;
     private final long sunset;
     private final Temp temp;
+    @JsonProperty("feels_like")
     private final FeelsLike feelsLike;
     private final int pressure;
     private final int humidity;
+    @JsonProperty("dew_point")
     private final double dewPoint;
+    @JsonProperty("wind_speed")
     private final double windSpeed;
+    @JsonProperty("wind_deg")
     private final int windDeg;
     private final List<Weather> weather;
     private final int clouds;

@@ -1,11 +1,14 @@
 package com.example.freightwise_weather;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.Map;
 
 public final class Coordinates {
     private final double lat;
     private final double lon;
     private final String name;
+    @JsonProperty("local_names")
     private final Map<String, String> localNames;
     private final String country;
     private final String state;
