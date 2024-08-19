@@ -4,7 +4,7 @@
       <ion-toolbar class="custom-header">
         <img src="@/assets/img/freightwise-logo_80w-264x71-copy.png" alt="Weather Icon" class="title-icon" width="160"/>
         <div class="tagline">
-          <span class="line1">SHIPPING YOU TOMORROW'S WEATHER  <span class="line2">TODAY!</span></span>
+          <span class="line1">SHIPPING YOU TOMORROW'S WEATHER --> <span class="line2">TODAY!</span></span>
         </div>
         <div class="divider"></div> <!-- Divider bar -->
         <div class="search-container">

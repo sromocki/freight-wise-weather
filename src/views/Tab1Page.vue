@@ -3,8 +3,17 @@
     <ion-content :fullscreen="true">
       <ion-card v-if="weatherData">
         <ion-card-header>
-          <ion-card-title>{{ weatherData.name }}</ion-card-title>
-          <ion-card-subtitle>{{ formattedDate(weatherData.current.dt) }}</ion-card-subtitle>
+          <div class="info-grid">
+            <div class="column">
+              <ion-card-title>{{ weatherData.name }}</ion-card-title>
+              <ion-card-subtitle>{{ formattedDate(weatherData.current.dt) }}</ion-card-subtitle>
+            </div>
+            <div class="column">
+              <ion-card-title>{{ weatherData.current.weather[0].main }}</ion-card-title>
+              <ion-card-subtitle v-if="shouldShowDescription">{{ capitalizeWords(weatherData.current.weather[0].description) }}</ion-card-subtitle>
+              <img :src="'http://openweathermap.org/img/wn/' + weatherData.current.weather[0].icon + '@4x.png'" alt="Weather Icon" />
+            </div>
+          </div>
         </ion-card-header>
         <ion-card-content>
           <div class="info-grid">
@@ -13,7 +22,7 @@
               <p>Clouds: {{ weatherData.current.clouds }}%</p>
               <p>Humidity: {{ weatherData.current.humidity }}%</p>
               <p>Pressure: {{ weatherData.current.pressure }} hPa</p>
-              <p>Visibility: {{ weatherData.current.visibility }} meters</p>
+              <p>Visibility: {{ visibilityInKm(weatherData.current.visibility) }} km</p>
             </div>
             <div class="column">
               <p>Feels Like: {{ weatherData.current.feels_like }}°F</p>
@@ -58,6 +67,21 @@ function windDirection(degree: number): string {
   const index = Math.round(degree / 22.5) % 16;
   return directions[index];
 }
+
+function visibilityInKm(meters: number): string {
+  return (meters / 1000).toFixed(1);
+}
+
+function capitalizeWords(description: string): string {
+  return description.replace(/\b\w/g, char => char.toUpperCase());
+}
+
+const shouldShowDescription = computed(() => {
+  if (!weatherData.value) return false;
+  const main = weatherData.value.current.weather[0].main;
+  const description = weatherData.value.current.weather[0].description;
+  return main.toLowerCase() !== description.toLowerCase();
+});
 </script>
 
 <style scoped>
