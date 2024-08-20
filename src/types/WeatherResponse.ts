@@ -19,7 +19,18 @@ interface Weather {
     visibility: number;
     wind_speed: number;
     wind_deg: number;
+    wind_gust: number;
+    rain: Rain;
+    snow: Snow;
     weather: Weather[];
+  }
+
+  interface Rain {
+    '1h': number;
+  }
+
+  interface Snow {
+    '1h': number;
   }
   
   interface HourlyWeather {
@@ -34,6 +45,10 @@ interface Weather {
     visibility: number;
     wind_speed: number;
     wind_deg: number;
+    wind_gust: number;
+    pop: number;
+    rain: Rain;
+    snow: Snow;
     weather: Weather[];
   }
   
@@ -57,17 +72,25 @@ interface Weather {
     dt: number;
     sunrise: number;
     sunset: number;
+    moonrise: number;
+    moonset: number;
+    moon_phase: number;
     temp: DailyTemperature;
     feels_like: DailyFeelsLike;
+    visibility: number;
     pressure: number;
     humidity: number;
     dew_point: number;
     wind_speed: number;
     wind_deg: number;
+    wind_gust: number;
+    rain: number;
+    snow: number;
     weather: Weather[];
     clouds: number;
     pop: number;
     uvi: number;
+    summary: string;
   }
   
   interface Alert {

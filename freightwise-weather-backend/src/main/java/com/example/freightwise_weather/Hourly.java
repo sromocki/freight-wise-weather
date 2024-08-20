@@ -4,118 +4,129 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
 
-public class Hourly {
-    private long dt;
-    private double temp;
+public final class Hourly {
+    private final long dt;
+    private final double temp;
     @JsonProperty("feels_like")
-    private double feelsLike;
-    private int pressure;
-    private int humidity;
+    private final double feelsLike;
+    private final int pressure;
+    private final int humidity;
     @JsonProperty("dew_point")
-    private double dewPoint;
-    private double uvi;
-    private int clouds;
-    private int visibility;
+    private final double dewPoint;
+    private final double uvi;
+    private final int clouds;
+    private final int visibility;
     @JsonProperty("wind_speed")
-    private double windSpeed;
+    private final double windSpeed;
     @JsonProperty("wind_deg")
-    private int windDeg;
-    private List<Weather> weather;
+    private final int windDeg;
 
-    // Getters and Setters
-    public long getDt() {
-        return dt;
+    @JsonProperty("wind_gust")
+    private final int windGust;
+
+    private final double pop;
+    private final Rain rain;
+    private final Snow snow;
+    private final List<Weather> weather;
+
+    public Hourly(
+            @JsonProperty("dt") long dt,
+            @JsonProperty("temp") double temp,
+            @JsonProperty("feels_like") double feelsLike,
+            @JsonProperty("pressure") int pressure,
+            @JsonProperty("humidity") int humidity,
+            @JsonProperty("dew_point") double dewPoint,
+            @JsonProperty("uvi") double uvi,
+            @JsonProperty("clouds") int clouds,
+            @JsonProperty("visibility") int visibility,
+            @JsonProperty("wind_speed") double windSpeed,
+            @JsonProperty("wind_deg") int windDeg,
+            @JsonProperty("wind_gust") int windGust,
+            @JsonProperty("pop") double pop,
+            @JsonProperty("rain") Rain rain,
+            @JsonProperty("snow") Snow snow,
+            @JsonProperty("weather") List<Weather> weather
+    ) {
+        this.dt = dt;
+        this.temp = temp;
+        this.feelsLike = feelsLike;
+        this.pressure = pressure;
+        this.humidity = humidity;
+        this.dewPoint = dewPoint;
+        this.uvi = uvi;
+        this.clouds = clouds;
+        this.visibility = visibility;
+        this.windSpeed = windSpeed;
+        this.windDeg = windDeg;
+        this.windGust = windGust;
+        this.pop = pop;
+        this.rain = rain;
+        this.snow = snow;
+        this.weather = weather;
     }
 
-    public void setDt(long dt) {
-        this.dt = dt;
+    // Getters
+    public long getDt() {
+        return dt;
     }
 
     public double getTemp() {
         return temp;
     }
 
-    public void setTemp(double temp) {
-        this.temp = temp;
-    }
-
     public double getFeelsLike() {
         return feelsLike;
-    }
-
-    public void setFeelsLike(double feelsLike) {
-        this.feelsLike = feelsLike;
     }
 
     public int getPressure() {
         return pressure;
     }
 
-    public void setPressure(int pressure) {
-        this.pressure = pressure;
-    }
-
     public int getHumidity() {
         return humidity;
-    }
-
-    public void setHumidity(int humidity) {
-        this.humidity = humidity;
     }
 
     public double getDewPoint() {
         return dewPoint;
     }
 
-    public void setDewPoint(double dewPoint) {
-        this.dewPoint = dewPoint;
-    }
-
     public double getUvi() {
         return uvi;
-    }
-
-    public void setUvi(double uvi) {
-        this.uvi = uvi;
     }
 
     public int getClouds() {
         return clouds;
     }
 
-    public void setClouds(int clouds) {
-        this.clouds = clouds;
-    }
-
     public int getVisibility() {
         return visibility;
-    }
-
-    public void setVisibility(int visibility) {
-        this.visibility = visibility;
     }
 
     public double getWindSpeed() {
         return windSpeed;
     }
 
-    public void setWindSpeed(double windSpeed) {
-        this.windSpeed = windSpeed;
-    }
-
     public int getWindDeg() {
         return windDeg;
     }
 
-    public void setWindDeg(int windDeg) {
-        this.windDeg = windDeg;
+    public int getWindGust() {
+        return windGust;
+    }
+
+    public double getPop() {
+        return pop;
+    }
+
+    public Rain getRain() {
+        return rain;
+    }
+
+    public Snow getSnow() {
+        return snow;
     }
 
     public List<Weather> getWeather() {
         return weather;
-    }
-
-    public void setWeather(List<Weather> weather) {
-        this.weather = weather;
     }
 }

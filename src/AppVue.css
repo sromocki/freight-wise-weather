@@ -35,7 +35,7 @@
   ion-searchbar.searchbar {
     width: 80%; /* Adjust width as needed */
     vertical-align: middle;
-    text-align: center;
+    text-align: left;
   }
   
   .search-container {

@@ -5,7 +5,7 @@
       <ion-tab-bar slot="bottom">
         <ion-tab-button tab="tab1" href="/tabs/tab1">
           <ion-icon aria-hidden="true" :icon="partlySunny" />
-          <ion-label>Current Weather</ion-label>
+          <ion-label>Today</ion-label>
         </ion-tab-button>
 
         <ion-tab-button tab="tab2" href="/tabs/tab2">
@@ -15,7 +15,7 @@
 
         <ion-tab-button tab="tab3" href="/tabs/tab3">
           <ion-icon aria-hidden="true" :icon="calendar" />
-          <ion-label>4 Day Forecast</ion-label>
+          <ion-label>8 Day Forecast</ion-label>
         </ion-tab-button>
       </ion-tab-bar>
     </ion-tabs>

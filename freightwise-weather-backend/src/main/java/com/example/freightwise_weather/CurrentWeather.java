@@ -92,9 +92,14 @@ public final class CurrentWeather {
         private final double windSpeed;
         @JsonProperty("wind_deg")
         private final int windDeg;
+
+        @JsonProperty("wind_gust")
+        private final double windGust;
+        private final Rain rain;
+        private final Snow snow;
         private final List<Weather> weather;
 
-        public Current(long dt, long sunrise, long sunset, double temp, double feelsLike, int pressure, int humidity, double dewPoint, double uvi, int clouds, int visibility, double windSpeed, int windDeg, List<Weather> weather) {
+        public Current(long dt, long sunrise, long sunset, double temp, double feelsLike, int pressure, int humidity, double dewPoint, double uvi, int clouds, int visibility, double windSpeed, int windDeg, double windGust, Rain rain, Snow snow, List<Weather> weather) {
             this.dt = dt;
             this.sunrise = sunrise;
             this.sunset = sunset;
@@ -108,6 +113,9 @@ public final class CurrentWeather {
             this.visibility = visibility;
             this.windSpeed = windSpeed;
             this.windDeg = windDeg;
+            this.windGust = windGust;
+            this.rain = rain;
+            this.snow = snow;
             this.weather = weather;
         }
 
@@ -161,6 +169,18 @@ public final class CurrentWeather {
 
         public int getWindDeg() {
             return windDeg;
+        }
+
+        public double getWindGust() {
+            return windGust;
+        }
+
+        public Rain getRain() {
+            return rain;
+        }
+
+        public Snow getSnow() {
+            return snow;
         }
 
         public List<Weather> getWeather() {
