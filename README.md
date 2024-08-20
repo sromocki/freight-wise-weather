@@ -6,12 +6,15 @@ npm run deploy
 ```
 
 Backend is written in Springboot Java and hosted on elastic beanstalk.
-Deployment is manual for now.  Build a new jar from gradle and then upload as a new application version in beanstalk.
+Deployment is manual for now.  
+Build a new jar from gradle and then upload as a new application version in beanstalk.
 
 This uses the OpenWeatherMap API for retrieving weather data.
+
 https://openweathermap.org/api/one-call-3
 
 This app is accesible from a statically hosted s3 bucket here:
+
 http://freightwise-weather.s3-website-us-east-1.amazonaws.com
 
 To run the frontend locally:
@@ -19,6 +22,7 @@ To run the frontend locally:
 npm install
 ionic serve
 ```
+
 If you want your local to hit the prod backend simply do:
 ```bash
 export NODE_ENV=production && ionic serve
