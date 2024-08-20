@@ -17,7 +17,6 @@
                   <p>Clouds: {{ day.clouds }}%</p>
                   <br/>
                   <p>High: {{ day.temp.max }}°F</p>
-                  <br/>
                   <p>Low: {{ day.temp.min }}°F</p>
                 </div>
                 <div class="column">

@@ -16,9 +16,6 @@
             class="searchbar"
             :show-icon="false"
           ></ion-searchbar>
-          <ion-button @click="handleSearch" class="search-button">
-            <ion-icon :icon="searchIcon" />
-          </ion-button>
         </div>
       </ion-toolbar>
     </ion-header>
